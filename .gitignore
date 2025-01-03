@@ -1,0 +1,25 @@
+#DEpendance
+/vendor/
+composer.lock
+
+#variable d'environnement
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+#logs
+logs/
+
+# Cache
+cache/
+
+# Fichiers de travail temporaires (Antigravity)
+scratch/
+implementation_plan.md
+task.md
+walkthrough.md
+dump_schema.php

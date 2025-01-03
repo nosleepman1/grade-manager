@@ -1,0 +1,147 @@
+<?php
+namespace App\Models;
+
+use DateTime;
+
+ class User extends BaseEntity{
+    private string $prenom;
+    private string $nom;
+    private string $email;
+    private string $password;
+    private ?int $id_classe = null;
+    private string $role;
+    private ?DateTime $password_verify_at = null;
+    private bool $is_active = true;
+
+    public function __construct(string $nom = '', 
+        string $prenom = '', 
+        string $email = '',
+        string $password = '',?int $id_classe = null, string $role = '', ?DateTime $password_verify_at = null)
+         {
+            
+        parent::__construct(); // Appel au constructeur parent
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->email = $email;
+        $this->id_classe = $id_classe;
+        $this->role = $role;
+        $this->password = $password;
+        $this->password_verify_at = $password_verify_at;
+    }
+
+    public function getPrenom(): string{
+        return $this->prenom;
+    }
+     public function getNom(): string{
+        return $this->nom;
+    }
+    public function getEmail(): string{
+        return $this->email;
+    }
+    public function getPassword(): string{
+        return $this->password;
+    }
+ 
+        public function getPasswordHash(): string {
+        return $this->password;
+    }
+    public function getRole(): string {
+        return $this->role;
+    }
+    public function getPasswordVerifyAt(): ?DateTime {
+        return $this->password_verify_at;
+    }
+    public function getIdClasse(): ?int {
+        return $this->id_classe;
+    }
+
+        // Setters: Modifier les attributs privés
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+    public function setPrenom(string $prenom): self {
+        $this->prenom = trim($prenom);
+        return $this; //Pour le chaînage
+    }
+    public function setEmail(string $email): self {
+        $this->email = strtolower(trim($email));
+        return $this; //Pour le chaînage
+    }
+    public function setPasswordVerifyAt(?DateTime $password_verify_at): self {
+        $this->password_verify_at = $password_verify_at;
+        return $this;
+    }
+    //set password verify at from string
+    public function setPasswordVerifyAtString(?string $password_verify_at): self {
+        if($password_verify_at !== null){
+            $this->password_verify_at = new \DateTime($password_verify_at);
+        } else {
+            $this->password_verify_at = null;
+        }
+        return $this;
+    }
+    public function setIdClasse(?int $id_classe): self {
+        $this->id_classe = $id_classe;
+        return $this;
+    }
+    public function setIsActive(bool $is_active): self {
+        $this->is_active = $is_active;
+        return $this;
+    }
+    public function isEtudiant(): bool {
+        return $this->id_classe !== null;
+    }
+    public function isProfesseur(): bool {
+        return $this->id_classe === null;
+    }
+
+
+    public function setRole(?string $role): self {
+        // Validation simple avec : admin, member
+        if(in_array($role, ['professeur', 'etudiant'])) {
+            $this->role = $role;
+        }
+        return $this;
+    }
+
+
+
+    /**
+     * Définir le mot de passe de l'utilisateur (hashé automatiquement)
+     * 
+     */
+    public function setPassword(string $password): self {
+        // hachage du mots de passe 
+        $this->password = $password; //password_hash($password, PASSWORD_BCRYPT);
+        return $this;
+    }
+
+    // Ajouter une autre methode pour setter le mot de passe sans le hasher
+    public function setPasswordHash(string $passwordHash): self {
+        $this->password = $passwordHash;
+        return $this;
+    }
+      // verfication du mots de passe comparaison avec celui hacher dans la base de donnner 
+    public function verifyPassword(string $password): bool {
+        return $password === $this->password;
+       // return password_verify($password, $this->password);
+    }
+   
+
+    public function toArray(): array
+    {
+        return [
+            'id'=> $this->id,
+            'prenom' => $this->prenom,
+            'nom'=> $this->nom,
+            'email'=> $this->email,
+            'password'=> $this->password,
+            'createdAt'=> $this->createdAt ? $this->createdAt->format('Y-m-d h:i:s') : null,
+            'updatedAt'=> $this->updatedAt ? $this->createdAt->format('Y-m-d h:i:s') : null,
+        ];
+    }
+
+}
