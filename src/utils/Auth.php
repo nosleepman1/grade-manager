@@ -62,11 +62,17 @@ class Auth {
       return self::$currentUser;
     }
 
+    
+
+    
+
     // Récupérer l'ID utilisateur depuis la session
     $userId = self::id();
     if ($userId === null) {
       return null;
     }
+
+   
 
     // Récupérer l'utilisateur depuis la base de données
     $userRepository = new UserRepository();

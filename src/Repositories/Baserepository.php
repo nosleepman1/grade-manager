@@ -24,6 +24,7 @@ abstract class BaseRepository {
     protected PDO $pdo;
 
     protected string $tableName; // Nom de la table associée au repository
+    protected string $primaryKey = 'id'; // Clé primaire de la table
 
     public function __construct() {
         $db = Database::getInstance();
@@ -56,15 +57,17 @@ abstract class BaseRepository {
 
     public function findById(int $id): ?BaseEntity {
         try {
-            $sql = "SELECT * FROM {$this->tableName} WHERE id = :id";
+            $sql = "SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            $result = $stmt->fetch(); // Tableau associatif ou false
+            $result = $stmt->fetch();
+            // Tableau associatif ou false
             if ($result) {
                 return $this->hydrate($result);
             }
             return null;
+
         } catch (PDOException $e) {
             $this->logError($e);
             return null;
@@ -73,7 +76,7 @@ abstract class BaseRepository {
 
     public function delete(int $id): bool {
         try {
-            $sql = "DELETE FROM {$this->tableName} WHERE id = :id";
+            $sql = "DELETE FROM {$this->tableName} WHERE {$this->primaryKey} = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([':id' => $id]);
    

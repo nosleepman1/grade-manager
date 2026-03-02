@@ -17,7 +17,7 @@ class UserRepository extends BaseRepository {
              ->setPrenom($data['prenom'])
              ->setEmail($data['email'])
              ->setPasswordHash($data['password']) // Charger le hash depuis la DB
-             ->setRole($data['role'] ?? null)
+             ->setRole($data['role'])
              ->setCreatedAt(new \DateTime($data['created_at']))
              ->setUpdatedAt(new \DateTime($data['updated_at']))
              ->setId((int)$data['id']);
@@ -32,8 +32,7 @@ class UserRepository extends BaseRepository {
             $stmt->bindParam(':email', $email, \PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetch(); // Tableau associatif ou false
-            /* var_dump($result);
-            die('ici'); */
+            
             if ($result) {
                 return $this->hydrate($result);
             }
