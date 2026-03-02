@@ -10,3 +10,10 @@ composer.lock
 .vscode/
 *.swp
 *.swo
+
+#logs
+logs/
+
+#cache
+cache/
+
