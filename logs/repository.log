@@ -17,3 +17,4 @@
 2026-02-28 21:50:26 - Erreur PDO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'grade_app_db.proffesseurs' doesn't exist
 2026-02-28 21:52:56 - Erreur PDO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'grade_app_db.proffesseurs' doesn't exist
 2026-02-28 21:52:56 - Erreur PDO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'grade_app_db.proffesseurs' doesn't exist
+
