@@ -2,7 +2,9 @@
 <section class="mb-8">
     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Vue d'ensemble</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Total Professors Card -->
+        
+
+
         <div class="bg-white rounded-lg shadow-md p-6 card-hover">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-blue-100 text-blue-600">
@@ -17,7 +19,7 @@
             </div>
         </div>
 
-        <!-- Total Students Card -->
+     
         <div class="bg-white rounded-lg shadow-md p-6 card-hover">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-green-100 text-green-600">
@@ -32,7 +34,7 @@
             </div>
         </div>
 
-        <!-- Total Classes Card -->
+     
         <div class="bg-white rounded-lg shadow-md p-6 card-hover">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-purple-100 text-purple-600">
@@ -47,7 +49,6 @@
             </div>
         </div>
 
-        <!-- Total Subjects Card -->
         <div class="bg-white rounded-lg shadow-md p-6 card-hover">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-orange-100 text-orange-600">

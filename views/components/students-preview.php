@@ -18,7 +18,7 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <?php
-                    // Exemple de données fictives - à remplacer par une boucle PHP réelle
+                 
                     $students = [
                         ['id' => 1, 'nom' => 'Alice Dupont', 'classe' => '6ème A'],
                         ['id' => 2, 'nom' => 'Bob Martin', 'classe' => '5ème B'],
