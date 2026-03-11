@@ -32,6 +32,13 @@ class AuthController {
         }
         require __DIR__ . '/../../views/auth/login.php';
     }
+    // public function showAdminPasswordForm(): void {
+    //     // Si l'utilisateur est déjà connecté, le rediriger vers la page d'accueil sinon le rediriger vers le formulaire
+    //     if(Auth::check()) {
+          
+    //     }
+        
+   // }
     
 
      public function showRegisterForm(): void {
@@ -62,9 +69,11 @@ class AuthController {
            // Session::flash('success', 'Connexion réussie ! Bienvenue ' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
             if(Auth::user()->getIdClasse() === null && Auth::user()->getPasswordVerifyAt() === null) {
                 Session::flash('success', 'Connexion réussie ! Bienvenue prof' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
+                 require __DIR__ . '/../../views/auth/adminPassword.php';
                 //view etudiants
-                $this->redirect('/');
+            
             }else if (Auth::user()->getIdClasse() === null && Auth::user()->getPasswordVerifyAt() !== null) {
+                Session::flash('success', 'Connexion réussie ! Bienvenue prof' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
                 //view prof 
              $this->redirect('/admin');
             } else {

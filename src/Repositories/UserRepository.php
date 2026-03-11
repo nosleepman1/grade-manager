@@ -18,7 +18,7 @@ class UserRepository extends BaseRepository {
              ->setPasswordHash($data['password']) // Charger le hash depuis la DB
              ->setRole($data['role'] ?? null)
              ->setIdClasse($data['classe_id'] ?? null)
-             ->setPasswordVerifyAt($data['password_verify_at'] ?? null)
+             ->setPasswordVerifyAtString($data['password_verify_at'] ?? null)
              ->setCreatedAt(new \DateTime($data['created_at']))
              ->setUpdatedAt(new \DateTime($data['updated_at']))
              ->setId((int)$data['id']);
@@ -86,7 +86,7 @@ class UserRepository extends BaseRepository {
                 ':password' => $user->getPasswordHash(),
                 ':role' => $user->getRole(),
                 ':classe_id' => $user->getIdClasse(),
-                ':password_verify_at' => $user->getPasswordVerifyAt(),
+                ':password_verify_at' => $user->getPasswordVerifyAt()->format('Y-m-d H:i:s'),
                 ':id' => $user->getId(),
             ];
             return $this->executeCommand($sql, $params);

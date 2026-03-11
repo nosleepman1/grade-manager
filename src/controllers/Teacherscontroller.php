@@ -6,6 +6,7 @@ use App\Utils\Session;
 use App\Repositories\UserRepository;
 use App\Models\User;
 use App\Repositories\ClasseRepository;
+use DateTime;
 
 class Teacherscontroller {
     private $userRepository;
@@ -16,7 +17,7 @@ class Teacherscontroller {
         $this->classeRepository = new ClasseRepository();
     }
 
-    public function index() {
+    public function index2() {
         $teachers = $this->userRepository->getAllTeachers();
         require __DIR__ . '/../views/admin/teachers.php';
     }
@@ -41,6 +42,7 @@ class Teacherscontroller {
        $user->setRole($role);
    
        if($this->userRepository->save($user)){
+       
         Session::flash('success', 'Professeur ajouté avec succès.');
        }else{
         Session::flash('error', 'Erreur lors de l\'ajout du professeur.');
@@ -48,7 +50,31 @@ class Teacherscontroller {
        $this->redirect('/admin');
    }
 
-   
+   public function passwordReset(){
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    if($password !== $confirm_password){
+        Session::flash('error', 'Les mots de passe ne correspondent pas.');
+        $this->redirect('/adminPassword');
+        return;
+    }
+    $now = new DateTime();
+    $user = Auth::user();
+    $user->setPassword($password);
+    $user->setPasswordVerifyAt($now);
+
+    if($this->userRepository->save($user)){
+        Session::flash('success', 'Mot de passe changé avec succès.');
+        $this->redirect('/admin');
+    }else{
+        Session::flash('error', 'Erreur lors du changement de mot de passe.');
+        $this->redirect('/adminPassword');
+    }
+   }
+
+   public function index(){
+    require __DIR__ . '/../../views/teacher/index.php';
+   }
 
     public function redirect(string $path): void {
         header("Location: " . $path);
