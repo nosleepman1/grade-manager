@@ -16,7 +16,7 @@ use DateTime;
     public function __construct(string $nom = '', 
         string $prenom = '', 
         string $email = '',
-        string $password = '',?int $id_classe = null, string $role = '')
+        string $password = '',?int $id_classe = null, string $role = '', ?DateTime $password_verify_at = null)
          {
             
         parent::__construct(); // Appel au constructeur parent
@@ -26,6 +26,7 @@ use DateTime;
         $this->id_classe = $id_classe;
         $this->role = $role;
         $this->password = $password;
+        $this->password_verify_at = $password_verify_at;
     }
 
     public function getPrenom(): string{
@@ -71,6 +72,14 @@ use DateTime;
     }
     public function setPasswordVerifyAt(?DateTime $password_verify_at): self {
         $this->password_verify_at = $password_verify_at;
+        return $this;
+    }
+    public function setPasswordVerifyAtString(?string $password_verify_at): self {
+        if($password_verify_at !== null){
+            $this->password_verify_at = new \DateTime($password_verify_at);
+        } else {
+            $this->password_verify_at = null;
+        }
         return $this;
     }
     public function setIdClasse(?int $id_classe): self {

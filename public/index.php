@@ -15,6 +15,7 @@
 
     switch ($url) {
         case '':
+            break;
         case 'home':
             require_once __DIR__ . '/../views/index.php';
             break;
@@ -65,6 +66,21 @@
                 $teacherscontroller->register();
             }
             break;
+        case 'password-reset':
+            $teacherscontroller = new Teacherscontroller();
+            if($requestMethod === 'POST'){
+               $teacherscontroller->passwordReset();
+            }
+            if($requestMethod === 'GET'){
+                $teacherscontroller->showAdminPasswordForm();
+            }
+            break;
+        // case 'teacher':
+        //     $teacherscontroller = new Teacherscontroller();
+        //     if($requestMethod === 'GET'){
+        //         $teacherscontroller->index();
+        //     }
+        //     break;
 
         default:
             http_response_code(404);
